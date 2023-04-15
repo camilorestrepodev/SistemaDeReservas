@@ -6,7 +6,8 @@ El sistema permite a los clientes realizar reservas en línea para habitaciones 
 - Java versión: 11
 - Gradle:
 - Spring Boot: 2.7.11 (SNAPSHOT)
-- Base de datos: MySQL
+- Base de datos: MySQL 
+- JpaRepository
 
 ## Configuración
 Antes de comenzar, asegúrese de tener una base de datos configurada y actualice las credenciales de la base de datos en el archivo **application.properties**.
@@ -25,9 +26,13 @@ La documentación de la API se genera automáticamente con Swagger. Para acceder
 ## Patrón de Diseño
 Este proyecto utiliza el patrón de diseño DTO (Data Transfer Object) para transferir datos entre las diferentes capas de la aplicación. Los DTO son objetos simples que contienen campos y métodos de acceso, y se utilizan para transferir datos entre los controladores y los servicios.
 
-## Pruebas Unitarias
-Este proyecto cuenta con pruebas unitarias implementadas con Mockito y JUnit. Las pruebas se encuentran en la carpeta src/test/java y se pueden ejecutar con el siguiente comando:
+## Diagrama del Modelo Entidad-Relación
+Este es el diagrama del modelo entidad-relación para la base de datos MySQL del proyecto de sistema de reservas:
+- La tabla cliente contiene información sobre los clientes, como su nombre y su correo electrónico.
+- La tabla habitacion contiene información sobre las habitaciones, como el tipo de habitación, la descripción y el precio.
+- La tabla reserva contiene información sobre las reservas, como el cliente que la realizó, la habitación reservada y las fechas de inicio y fin de la reserva.
 
+## Diagrama de Clases
 ## Microservicios
 Este proyecto está dividido en tres microservicios diferentes: Cliente, Habitación y Reserva. Cada microservicio tiene su propia base de datos y API REST. La comunicación entre los microservicios se realiza a través de peticiones HTTP.
 
@@ -127,3 +132,5 @@ Ejemplo de petición:
 
 *http://localhost:8084/api/v1/disponibles/habitacion?tipo=premium&fecha=28-03-2023*
 
+## Pruebas Unitarias
+Este proyecto cuenta con pruebas unitarias implementadas con Mockito y JUnit. Las pruebas se encuentran en la carpeta src/test/java y se pueden ejecutar con el siguiente comando:

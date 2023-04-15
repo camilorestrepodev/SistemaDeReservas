@@ -31,19 +31,35 @@ Este proyecto cuenta con pruebas unitarias implementadas con Mockito y JUnit. La
 ## Microservicios
 Este proyecto está dividido en tres microservicios diferentes: Cliente, Habitación y Reserva. Cada microservicio tiene su propia base de datos y API REST. La comunicación entre los microservicios se realiza a través de peticiones HTTP.
 
-### Cliente Microservicio
+#### Cliente Microservicio
 Endpoints:
 - **POST /clientes** - Crea un nuevo cliente
 ```java
 {
-"cedula": 12345,
-"nombre":"Mateo",
-"apellido":"Zapata",
-"celular": 30463,
-"correoElectronico" : "mateo@gmail.com",
-"direccion" :"calle 46 # 69-90",
-"ciudad" : "Medellin"
+    "cedula": 12345,
+    "nombre": "Mateo",
+    "apellido": "Zapata",
+    "celular": 30463,
+    "correoElectronico" : "mateo@gmail.com",
+    "direccion" : "calle 46 # 69-90",
+    "ciudad" : "Medellin"
 }
 ```
 
-### Habitación Microservicio
+#### Habitación Microservicio
+Endpoints:
+- **POST /habitaciones** - Crea una nueva habitación
+```java
+{
+    "numero": 10,
+    "tipoHabitacion": "estandar",
+    "precioBase": 21200
+}
+```
+
+#### Reserva Microservicio
+Endpoints:
+- **POST /reservar** - Crea una nueva habitación
+- **GET /reservas/{cedula}** - Obtener lista de reservas por cedula
+- **GET /disponibles/{fecha}** - Obtener lista de habitaciones disponibles por fecha
+- **GET /disponibles/habitacion** - Obtener lista de habitaciones por tipo y fecha

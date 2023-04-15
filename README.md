@@ -60,6 +60,70 @@ Endpoints:
 #### Reserva Microservicio
 Endpoints:
 - **POST /reservar** - Crea una nueva habitación
+Ejemplo de petición:
+
+*http://localhost:8084/api/v1/reservar/?numero=10&fecha=25-08-2023&cedula=12345*
+
+Respuesta de petición:
+```java
+{
+    "fechaReserva": "2023-08-25",
+    "habitacion": {
+        "numero": 10,
+        "tipoHabitacion": "estandar",
+        "precioBase": 21200
+    },
+    "cliente": {
+        "nombre": "Mateo",
+        "apellido": "Zapata",
+        "cedula": 12345,
+        "direccion": "calle 46 # 69-90",
+        "edad": null,
+        "email": null
+    },
+    "codigoReserva": 3,
+    "totalPago": 21200
+}
+```
+
 - **GET /reservas/{cedula}** - Obtener lista de reservas por cedula
+
+Ejemplo de petición:
+
+*http://localhost:8084/api/v1/reservas/12345*
+
+```java
+[
+    {
+        "fechaReserva": "2023-08-25",
+        "habitacion": {
+            "numero": 10,
+            "tipoHabitacion": "estandar",
+            "precioBase": 21200
+        },
+        "cliente": {
+            "nombre": "Mateo",
+            "apellido": "Zapata",
+            "cedula": 12345,
+            "direccion": "calle 46 # 69-90",
+            "edad": null,
+            "email": null
+        },
+        "codigoReserva": 3,
+        "totalPago": 21200
+    }
+]
+```
+
 - **GET /disponibles/{fecha}** - Obtener lista de habitaciones disponibles por fecha
+
+Ejemplo de petición:
+
+*http://localhost:8084/api/v1/disponibles/25-08-2023*
+
 - **GET /disponibles/habitacion** - Obtener lista de habitaciones por tipo y fecha
+
+Ejemplo de petición:
+
+*http://localhost:8084/api/v1/disponibles/habitacion?tipo=premium&fecha=28-03-2023*
+

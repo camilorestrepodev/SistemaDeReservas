@@ -10,7 +10,7 @@ El sistema permite a los clientes realizar reservas en línea para habitaciones 
 
 ## Configuración
 Antes de comenzar, asegúrese de tener una base de datos configurada y actualice las credenciales de la base de datos en el archivo **application.properties**.
-```
+```java
 spring.datasource.url=jdbc:mysql://localhost:3306/sistemadereservas
 spring.datasource.username=root
 spring.datasource.password={password}
@@ -33,5 +33,17 @@ Este proyecto está dividido en tres microservicios diferentes: Cliente, Habitac
 
 ### Cliente Microservicio
 Endpoints:
-- POST /clientes - Crea un nuevo cliente
+- **POST /clientes** - Crea un nuevo cliente
+```java
+{
+"cedula": 12345,
+"nombre":"Mateo",
+"apellido":"Zapata",
+"celular": 30463,
+"correoElectronico" : "mateo@gmail.com",
+"direccion" :"calle 46 # 69-90",
+"ciudad" : "Medellin"
+}
+```
 
+### Habitación Microservicio

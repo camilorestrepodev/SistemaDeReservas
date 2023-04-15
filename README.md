@@ -35,6 +35,8 @@ Este es el diagrama del modelo entidad-relación para la base de datos MySQL del
 - La tabla **Reserva** contiene información sobre las reservas, como el codigo de reserva, la cedula del cliente que la realizó, el numero de la habitación reservada y la fecha de la reserva y el total a pagar.
 
 ## Diagrama de Clases
+
+#### Esquema del proyecto:
 ```java
 com.example.HotelAshir
 ├── Configurer

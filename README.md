@@ -61,15 +61,15 @@ com.example.HotelAshir
 │   ├── ClienteService.java
 │   ├── HabitacionService.java
 │   └── ReservaService.java
-└── ReservasApplication.java
+└── HotelAshirApplication.java
 ```
-- El paquete config contiene las clases de configuración para la base de datos y Swagger.
-- El paquete controller contiene las clases controladoras para los microservicios de Cliente, Habitación y Reserva.
-- El paquete dto contiene las clases DTO (Data Transfer Object) para los objetos Cliente, Habitación y Reserva, que se utilizan para transferir datos entre la capa de presentación y la capa de servicios.
-- El paquete entity contiene las clases de entidades JPA (Java Persistence API) para los objetos Cliente, Habitación y Reserva, que se utilizan para mapear las tablas de la base de datos.
-- El paquete repository contiene las interfaces de repositorios JPA para los objetos Cliente, Habitación y Reserva, que se utilizan para interactuar con la base de datos.
-- El paquete service contiene las clases de servicios para los microservicios de Cliente, Habitación y Reserva, que contienen la lógica de negocio.
-- La clase ReservasApplication es la clase principal del proyecto que se utiliza para iniciar la aplicación.
+- El paquete **Configurer** contiene las clases de configuración para la base de datos y Swagger.
+- El paquete **Controller** contiene las clases controladoras para los microservicios de Cliente, Habitación y Reserva.
+- El paquete **Dto** contiene las clases DTO (Data Transfer Object) para los objetos Cliente, Habitación y Reserva, que se utilizan para transferir datos entre la capa de presentación y la capa de servicios.
+- El paquete **Entity** contiene las clases de entidades JPA (Java Persistence API) para los objetos Cliente, Habitación y Reserva, que se utilizan para mapear las tablas de la base de datos.
+- El paquete **Repository** contiene las interfaces de repositorios JPA para los objetos Cliente, Habitación y Reserva, que se utilizan para interactuar con la base de datos.
+- El paquete **Service** contiene las clases de servicios para los microservicios de Cliente, Habitación y Reserva, que contienen la lógica de negocio.
+- La clase **HotelAshirApplication** es la clase principal del proyecto que se utiliza para iniciar la aplicación.
 ## Microservicios
 Este proyecto está dividido en tres microservicios diferentes: Cliente, Habitación y Reserva. Cada microservicio tiene su propia base de datos y API REST. La comunicación entre los microservicios se realiza a través de peticiones HTTP.
 

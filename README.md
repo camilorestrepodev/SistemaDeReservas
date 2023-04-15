@@ -35,6 +35,40 @@ Este es el diagrama del modelo entidad-relación para la base de datos MySQL del
 - La tabla **Reserva** contiene información sobre las reservas, como el codigo de reserva, la cedula del cliente que la realizó, el numero de la habitación reservada y la fecha de la reserva y el total a pagar.
 
 ## Diagrama de Clases
+```java
+com.example.reservas
+├── config
+│   ├── DatabaseConfig.java
+│   └── SwaggerConfig.java
+├── controller
+│   ├── ClienteController.java
+│   ├── HabitacionController.java
+│   └── ReservaController.java
+├── dto
+│   ├── ClienteDTO.java
+│   ├── HabitacionDTO.java
+│   └── ReservaDTO.java
+├── entity
+│   ├── Cliente.java
+│   ├── Habitacion.java
+│   └── Reserva.java
+├── repository
+│   ├── ClienteRepository.java
+│   ├── HabitacionRepository.java
+│   └── ReservaRepository.java
+├── service
+│   ├── ClienteService.java
+│   ├── HabitacionService.java
+│   └── ReservaService.java
+└── ReservasApplication.java
+```
+- El paquete config contiene las clases de configuración para la base de datos y Swagger.
+- El paquete controller contiene las clases controladoras para los microservicios de Cliente, Habitación y Reserva.
+- El paquete dto contiene las clases DTO (Data Transfer Object) para los objetos Cliente, Habitación y Reserva, que se utilizan para transferir datos entre la capa de presentación y la capa de servicios.
+- El paquete entity contiene las clases de entidades JPA (Java Persistence API) para los objetos Cliente, Habitación y Reserva, que se utilizan para mapear las tablas de la base de datos.
+- El paquete repository contiene las interfaces de repositorios JPA para los objetos Cliente, Habitación y Reserva, que se utilizan para interactuar con la base de datos.
+- El paquete service contiene las clases de servicios para los microservicios de Cliente, Habitación y Reserva, que contienen la lógica de negocio.
+- La clase ReservasApplication es la clase principal del proyecto que se utiliza para iniciar la aplicación.
 ## Microservicios
 Este proyecto está dividido en tres microservicios diferentes: Cliente, Habitación y Reserva. Cada microservicio tiene su propia base de datos y API REST. La comunicación entre los microservicios se realiza a través de peticiones HTTP.
 

@@ -36,27 +36,26 @@ Este es el diagrama del modelo entidad-relación para la base de datos MySQL del
 
 ## Diagrama de Clases
 ```java
-com.example.reservas
-├── config
-│   ├── DatabaseConfig.java
+com.example.HotelAshir
+├── Configurer
 │   └── SwaggerConfig.java
-├── controller
+├── Controller
 │   ├── ClienteController.java
 │   ├── HabitacionController.java
 │   └── ReservaController.java
-├── dto
+├── Dto
 │   ├── ClienteDTO.java
 │   ├── HabitacionDTO.java
 │   └── ReservaDTO.java
-├── entity
+├── Entity
 │   ├── Cliente.java
 │   ├── Habitacion.java
 │   └── Reserva.java
-├── repository
+├── Repository
 │   ├── ClienteRepository.java
 │   ├── HabitacionRepository.java
 │   └── ReservaRepository.java
-├── service
+├── Service
 │   ├── ClienteService.java
 │   ├── HabitacionService.java
 │   └── ReservaService.java

@@ -28,9 +28,11 @@ Este proyecto utiliza el patrón de diseño DTO (Data Transfer Object) para tran
 
 ## Diagrama del Modelo Entidad-Relación
 Este es el diagrama del modelo entidad-relación para la base de datos MySQL del proyecto de sistema de reservas:
-- La tabla cliente contiene información sobre los clientes, como su nombre y su correo electrónico.
-- La tabla habitacion contiene información sobre las habitaciones, como el tipo de habitación, la descripción y el precio.
-- La tabla reserva contiene información sobre las reservas, como el cliente que la realizó, la habitación reservada y las fechas de inicio y fin de la reserva.
+![Diagrama](https://user-images.githubusercontent.com/119947851/232180155-0b7b4fa5-03e4-4316-a5cc-e0fa675722d2.png)
+
+- La tabla **Cliente** contiene información sobre los clientes, como su cedula, nombre, apellido, direccion, edad y correo electronico.
+- La tabla **Habitación** contiene información sobre las habitaciones, como el numero, precio y tipo.
+- La tabla **Reserva** contiene información sobre las reservas, como el codigo de reserva, la cedula del cliente que la realizó, el numero de la habitación reservada y la fecha de la reserva y el total a pagar.
 
 ## Diagrama de Clases
 ## Microservicios
@@ -67,7 +69,7 @@ Endpoints:
 - **POST /reservar** - Crea una nueva habitación
 Ejemplo de petición:
 
-*http://localhost:8084/api/v1/reservar/?numero=10&fecha=25-08-2023&cedula=12345*
+``(http://localhost:8084/api/v1/reservar/?numero=10&fecha=25-08-2023&cedula=12345)``
 
 Respuesta de petición:
 ```java
@@ -95,7 +97,7 @@ Respuesta de petición:
 
 Ejemplo de petición:
 
-*http://localhost:8084/api/v1/reservas/12345*
+``(http://localhost:8084/api/v1/reservas/12345)``
 
 ```java
 [
@@ -124,13 +126,16 @@ Ejemplo de petición:
 
 Ejemplo de petición:
 
-*http://localhost:8084/api/v1/disponibles/25-08-2023*
+``(http://localhost:8084/api/v1/disponibles/25-08-2023)``
 
 - **GET /disponibles/habitacion** - Obtener lista de habitaciones por tipo y fecha
 
 Ejemplo de petición:
 
-*http://localhost:8084/api/v1/disponibles/habitacion?tipo=premium&fecha=28-03-2023*
+``(http://localhost:8084/api/v1/disponibles/habitacion?tipo=premium&fecha=28-03-2023)``
 
 ## Pruebas Unitarias
 Este proyecto cuenta con pruebas unitarias implementadas con Mockito y JUnit. Las pruebas se encuentran en la carpeta src/test/java y se pueden ejecutar con el siguiente comando:
+
+
+## Integración continua

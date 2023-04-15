@@ -23,7 +23,8 @@ public class ClienteService {
         } else if(cliente.getCedula()==null){
             throw new ApiRequestException("El campo de cedula no esta en el body");
         }
-        return this.clienteRepository.save(cliente);
+        this.clienteRepository.save(cliente);
+        return cliente;
     }
 }
 

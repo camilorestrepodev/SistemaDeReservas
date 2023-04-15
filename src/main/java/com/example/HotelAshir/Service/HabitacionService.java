@@ -22,6 +22,7 @@ public class HabitacionService {
         } else if(habitacion.getPrecioBase()==null){
             throw new ApiRequestException("El campo de precio no esta en el body");
         }
-        return this.habitacionRepository.save(habitacion);
+        this.habitacionRepository.save(habitacion);
+        return habitacion;
     }
 }

@@ -78,13 +78,13 @@ Endpoints:
 - **POST /clientes** - Crea un nuevo cliente
 ```java
 {
-    "cedula": 12345,
-    "nombre": "Mateo",
-    "apellido": "Zapata",
-    "celular": 30463,
-    "correoElectronico" : "mateo@gmail.com",
-    "direccion" : "calle 46 # 69-90",
-    "ciudad" : "Medellin"
+"cedula": 12345,
+"nombre":"Mateo",
+"apellido":"Zapata",
+"correoElectronico" : "mateo@gmail.com",
+"direccion" :"calle 46 # 69-90",
+"edad" : 18,
+"correo" : "mateo@gmail.com"
 }
 ```
 
@@ -93,9 +93,9 @@ Endpoints:
 - **POST /habitaciones** - Crea una nueva habitación
 ```java
 {
-    "numero": 10,
-    "tipoHabitacion": "estandar",
-    "precioBase": 21200
+    "numero": 1,
+    "tipoHabitacion": "PREMIUM",
+    "precioBase": 25000
 }
 ```
 
@@ -110,21 +110,9 @@ Respuesta de petición:
 ```java
 {
     "fechaReserva": "2023-08-25",
-    "habitacion": {
-        "numero": 10,
-        "tipoHabitacion": "estandar",
-        "precioBase": 21200
-    },
-    "cliente": {
-        "nombre": "Mateo",
-        "apellido": "Zapata",
-        "cedula": 12345,
-        "direccion": "calle 46 # 69-90",
-        "edad": null,
-        "email": null
-    },
-    "codigoReserva": 3,
-    "totalPago": 21200
+    "numero": 99,
+    "codigoReserva": 27,
+    "totalPago": 750
 }
 ```
 
@@ -136,23 +124,23 @@ Ejemplo de petición:
 
 ```java
 [
-    {
+     {
         "fechaReserva": "2023-08-25",
         "habitacion": {
-            "numero": 10,
-            "tipoHabitacion": "estandar",
-            "precioBase": 21200
+            "numero": 99,
+            "tipoHabitacion": "PREMIUM",
+            "precioBase": 15000
         },
         "cliente": {
             "nombre": "Mateo",
             "apellido": "Zapata",
-            "cedula": 12345,
-            "direccion": "calle 46 # 69-90",
-            "edad": null,
-            "email": null
+            "cedula": 123,
+            "direccion": "mateo@gmail.com",
+            "edad": 18,
+            "email": "calle 46 # 69-90"
         },
-        "codigoReserva": 3,
-        "totalPago": 21200
+        "codigoReserva": 27,
+        "totalPago": 750
     }
 ]
 ```
@@ -168,6 +156,21 @@ Ejemplo de petición:
 Ejemplo de petición:
 
 ``(http://localhost:8084/api/v1/disponibles/habitacion?tipo=premium&fecha=28-03-2023)``
+
+```java
+[
+    {
+        "numero": 11,
+        "tipoHabitacion": "premium",
+        "precioBase": 20500
+    },
+    {
+        "numero": 12,
+        "tipoHabitacion": "premium",
+        "precioBase": 20500
+    }
+]
+```
 
 ## Pruebas Unitarias
 Este proyecto cuenta con pruebas unitarias implementadas con Mockito y JUnit. Las pruebas se encuentran en la carpeta src/test/java y se pueden ejecutar con el siguiente comando:

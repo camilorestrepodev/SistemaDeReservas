@@ -85,7 +85,7 @@ class ReservaServiceTest {
         );
         Assertions.assertTrue(thrown.getMessage().contentEquals("Esta habitación no esta disponible"));
     }
-
+//
     @Test
     void crearReservaNoExisteHabitacion(){
         Cliente cliente = new Cliente("Mateo","perez",123,"calle 56 6-56",20,"d.perez@gmail.com");

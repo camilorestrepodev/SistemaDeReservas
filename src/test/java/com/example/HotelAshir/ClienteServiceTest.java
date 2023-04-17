@@ -1,5 +1,6 @@
 package com.example.HotelAshir;
 
+import com.example.HotelAshir.Dto.ClienteDto;
 import com.example.HotelAshir.Exception.ApiRequestException;
 import com.example.HotelAshir.Model.Cliente;
 import com.example.HotelAshir.Repository.ClienteRepository;
@@ -24,9 +25,9 @@ class ClienteServiceTest {
     @Test
     void validarRegistroCliente() {
         //Arrange
-        Cliente cliente = new Cliente("camilo", "perez", 1234, "calle 6 #5", 18, "camilop@gmail.com");
+        ClienteDto cliente = new ClienteDto("camilo", "perez", 1234, "calle 6 #5", 18, "camilop@gmail.com");
         //Act
-        Cliente cliente1 = this.clienteService.registrarCliente(cliente);
+        ClienteDto cliente1 = this.clienteService.registrarCliente(cliente);
         //Assert
         Assertions.assertNotNull(cliente1.getNombre());
         Assertions.assertNotNull(cliente1.getApellido());
@@ -36,7 +37,7 @@ class ClienteServiceTest {
     @Test
     void validarRegistroConClienteNull(){
         //Arrange
-        Cliente cliente = new Cliente(null,"perez", 1234, "calle 6 #5", 18, "camilop@gmail.com");
+        ClienteDto  cliente = new ClienteDto(null,"perez", 1234, "calle 6 #5", 18, "camilop@gmail.com");
         //Act y Assert
         ApiRequestException thrown = assertThrows(
                 ApiRequestException.class,
@@ -48,7 +49,7 @@ class ClienteServiceTest {
     @Test
     void validarRegistroConApellidoNull(){
         //Arrange
-        Cliente cliente = new Cliente("camilo",null, 1234, "calle 6 #5", 18, "camilop@gmail.com");
+        ClienteDto cliente = new ClienteDto("camilo",null, 1234, "calle 6 #5", 18, "camilop@gmail.com");
         //Act y Assert
         ApiRequestException thrown = assertThrows(
                 ApiRequestException.class,
@@ -60,7 +61,7 @@ class ClienteServiceTest {
     @Test
     void validarRegistroConCedulaNull(){
         //Arrange
-        Cliente cliente = new Cliente("camilo","perez", null, "calle 6 #5", 18, "camilop@gmail.com");
+        ClienteDto cliente = new ClienteDto("camilo","perez", null, "calle 6 #5", 18, "camilop@gmail.com");
         //Act y Assert
         ApiRequestException thrown = assertThrows(
                 ApiRequestException.class,

@@ -51,4 +51,7 @@ public class Habitacion {
     public void setPrecioBase(Integer precioBase) {
         this.precioBase = precioBase;
     }
+
+
 }
+

@@ -1,5 +1,6 @@
 package com.example.HotelAshir.Controller;
 
+import com.example.HotelAshir.Dto.HabitacionDto;
 import com.example.HotelAshir.Model.Cliente;
 import com.example.HotelAshir.Model.Habitacion;
 import com.example.HotelAshir.Service.HabitacionService;
@@ -25,13 +26,13 @@ public class HabitacionController {
     }
 
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Habitación creado con exito"),
-            @ApiResponse(code = 404, message = "La habitación no existe"),
-            @ApiResponse(code = 500, message = "Error de conexion")
+            @ApiResponse(code = 200, message = "Habitación ha sido creada con éxito"),
+            @ApiResponse(code = 404, message = "La habitación no ha sido creada"),
+            @ApiResponse(code = 500, message = "Error de conexión")
     })
     @ApiOperation(value = "Crear habitación", notes = "Crear habitación en la base de datos con la información obtenida", response = Habitacion.class)
     @PostMapping("/habitacion")
-    public Habitacion registrarHabitacion(@RequestBody Habitacion habitacion) {
-        return this.habitacionService.registrarHabitacion(habitacion);
+    public HabitacionDto registrarHabitacion(@RequestBody HabitacionDto habitacionDto) {
+        return this.habitacionService.registrarHabitacion(habitacionDto);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.HotelAshir;
 
+import com.example.HotelAshir.Dto.ReservaDto;
 import com.example.HotelAshir.Exception.ApiRequestException;
 import com.example.HotelAshir.Model.Cliente;
 import com.example.HotelAshir.Model.Habitacion;
@@ -15,11 +16,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.function.BooleanSupplier;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -41,89 +44,89 @@ class ReservaServiceTest {
     @InjectMocks
     private HabitacionService habitacionService;
 
-    @Test
-    void fechaValidaTest() {
-        // Arrange
-        LocalDate fecha = LocalDate.of(2024, 4, 30);
-        // Act
-        Boolean reserva = reservaService.fechaValida(fecha);
-        // Assert
-        Assertions.assertTrue(reserva);
-    }
-    @Test
-    void fechaInvalidaTest() {
-        LocalDate fecha = LocalDate.of(2022, 12, 31);
-        ApiRequestException thrown = assertThrows(
-                ApiRequestException.class,
-                () -> this.reservaService.fechaValida(fecha),
-                "La fecha es erronea");
-        Assertions.assertTrue(thrown.getMessage().contentEquals("La fecha es erronea"));
+
+   @Test
+    void crearReservaValida() {
+        Integer numHabitacion = 1;
+        Integer cedula = 123456789;
+        String fecha = "30-09-2023";
+        String tipoHabitacion = "PREMIUM";
+        Habitacion habitacion = new Habitacion(numHabitacion,tipoHabitacion,7500);
+       List<Habitacion> disponibles = new ArrayList<>();
+       disponibles.add(habitacion);
+        when(habitacionRepository.findById(numHabitacion)).thenReturn(Optional.of(habitacion));
+        when(habitacionRepository.save(habitacion)).thenReturn(habitacion);
+        Cliente cliente = new Cliente("mateo","zapata",cedula,"calle 51",18,"mateoz@gmial.com");
+
+        when(clienteRepository.findById(cedula)).thenReturn(Optional.of(cliente));
+
+        Reserva reserva = new Reserva(LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy")), habitacion, cliente, 7500);
+        when(reservaRepository.save(reserva)).thenReturn(reserva);
+
+        ReservaDto reservaDto = reservaService.crearReserva(numHabitacion,cedula,fecha);
+
+        Assertions.assertEquals(numHabitacion, reservaDto.getNumero());
+        Assertions.assertEquals(7500, reservaDto.getTotalPago());
     }
 
     @Test
-    void obtenerHabitacionesDisponiblesFecha() {
-        //Arrange
-        String fecha = "28-03-2028";
-        //Act
-        List<Habitacion> habitacion = this.reservaService.obtenerHabitacionesDisponiblesFecha(fecha);
-        //Assert
-        Assertions.assertTrue(habitacion.isEmpty());
-    }
-
-    @Test
-    void obtenerReservaClienteSinRegistrar(){
+    void crearReservaNoHayHabitacionesDisponiblesEnEsaFecha(){
+        String fecha = "30-09-2023";
+        Cliente cliente = new Cliente("Mateo","perez",123,"calle 56 6-56",20,"d.perez@gmail.com");
+        Habitacion habitacion = new Habitacion(1,"PREMIUM",15000);
+        when(clienteRepository.findById(cliente.getCedula())).thenReturn(Optional.of(cliente));
+        when(habitacionRepository.findById(habitacion.getNumero())).thenReturn(Optional.of(habitacion));
+        Reserva reserva = new Reserva(LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy")), habitacion, cliente, 7500);
+        when(reservaRepository.save(reserva)).thenReturn(reserva);
         ApiRequestException thrown = assertThrows(
                 ApiRequestException.class,
-                () -> this.reservaService.obtenerReservasCliente(123),
-                "Esta cedula no esta registrada"
+                () -> this.reservaService.crearReserva(habitacion.getNumero(),cliente.getCedula(),fecha),
+                "Esta habitación no esta disponible"
         );
-        Assertions.assertTrue(thrown.getMessage().contentEquals("Esta cedula no esta registrada"));
+        Assertions.assertTrue(thrown.getMessage().contentEquals("Esta habitación no esta disponible"));
     }
 
     @Test
-    void crearReservaSinHabitacion(){
-        Cliente cliente = new Cliente("d","perez",1234,"calle 56 6-56",20,"d.perez@gmail.com");
-        Habitacion habitacion = new Habitacion(2,"premium",15500);
-        clienteRepository.save(cliente);
-        habitacionRepository.save(habitacion);
-        String fecha = "2023-05-01";
-        LocalDate localDate = LocalDate.parse(fecha);
-        when(clienteRepository.findById(cliente.getCedula())).thenReturn(Optional.empty());
-        when(habitacionRepository.findById(habitacion.getNumero())).thenReturn(Optional.empty());
-
-        Reserva reserva = this.reservaService.crearReserva(cliente.getCedula(),habitacion.getNumero(),fecha);
-        Assertions.assertTrue((BooleanSupplier) reserva);
-    }
-
-    @Test
-    void crearReservaConHabitacionNoDisponible(){
-        Habitacion habitacion = new Habitacion(2,"premium",15500);
-        habitacionRepository.save(habitacion);
-        Integer cedula = 123;
-        String fecha = "2023-05-02";
-        LocalDate localDate = LocalDate.parse(fecha);
+    void crearReservaNoExisteHabitacion(){
+        Cliente cliente = new Cliente("Mateo","perez",123,"calle 56 6-56",20,"d.perez@gmail.com");
+        when(clienteRepository.findById(cliente.getCedula())).thenReturn(Optional.of(cliente));
+        Habitacion habitacion = new Habitacion(1,"PREMIUM",15000);
         ApiRequestException thrown = assertThrows(
                 ApiRequestException.class,
-                () -> this.reservaService.crearReserva(4,cedula,fecha),
-                "Esta habitacion no esta disponible"
+                () -> this.reservaService.crearReserva(123,123,"23-08-2023"),
+                "Esta habitación no se encuentra registrada"
         );
-        Assertions.assertTrue(thrown.getMessage().contentEquals("Esta habitacion no esta disponible"));
+        Assertions.assertTrue(thrown.getMessage().contentEquals("Esta habitación no se encuentra registrada"));
+    }
+    @Test
+    void crearReservaNoExisteCliente(){
+    Cliente cliente = new Cliente("Mateo","perez",123,"calle 56 6-56",20,"d.perez@gmail.com");
+    ApiRequestException thrown = assertThrows(
+            ApiRequestException.class,
+            () -> this.reservaService.crearReserva(123,123,"23-08-2023"),
+            "Este cliente no esta registrado"
+        );
+        Assertions.assertTrue(thrown.getMessage().contentEquals("Este cliente no esta registrado"));
     }
 
     @Test
-    void obtenerReservarPorCliente(){
-        Integer cedula =  1234;
-        Cliente cliente = new Cliente("d","perez",1234,"calle 56 6-56",20,"d.perez@gmail.com");
-        List<Reserva> reservas = new ArrayList<>();
-        Habitacion habitacion = new Habitacion(2,"premium",15500);
-        Reserva reserva1 = new Reserva(LocalDate.now(),habitacion,cliente,20000);
-        reservas.add(reserva1);
-        when(clienteRepository.findById(any())).thenReturn(Optional.of(cliente));
-        when(reservaRepository.findAll()).thenReturn(reservas);
-        //Act
-        List<Reserva> reserva = this.reservaService.obtenerReservasCliente(cedula);
-        //Assert
-        Assertions.assertFalse(reserva.isEmpty());
+    void crearReservasConDatosNull(){
+    ApiRequestException thrown = assertThrows(
+            ApiRequestException.class,
+            () -> this.reservaService.crearReserva(0,0,null),
+            "Los datos están incorrectos"
+    );
+        Assertions.assertTrue(thrown.getMessage().contentEquals("Los datos están incorrectos"));
+    }
+
+    @Test
+    void crearReservaConFechaAnterior(){
+        ApiRequestException thrown = assertThrows(
+                ApiRequestException.class,
+                () -> this.reservaService.crearReserva(10,123,"23-02-2021"),
+                "La fecha es anterior a la actual"
+        );
+        Assertions.assertTrue(thrown.getMessage().contentEquals("La fecha es anterior a la actual"));
     }
 
     @Test
@@ -144,15 +147,30 @@ class ReservaServiceTest {
     }
 
     @Test
-    void testObtenerHabitacionesTipoYFechaTipoHabitacionNoExiste() {
-        // Arrange
-        String fecha = "28-06-2023";
+    void obtenerReservaClienteSinRegistrar(){
+        ApiRequestException thrown = assertThrows(
+                ApiRequestException.class,
+                () -> this.reservaService.obtenerReservasCliente(123),
+                "Esta cedula no esta registrada"
+        );
+        Assertions.assertFalse(thrown.getMessage().contentEquals("Esta cedula no esta registrada"));
+    }
 
-        // Act
-        List<Habitacion> habitaciones = this.reservaService.ObtenerHabitacionesTipoYFecha("premium", fecha);
 
-        // Assert
-        Assertions.assertTrue(habitaciones.isEmpty());
+    @Test
+    void obtenerReservarPorCliente(){
+        Integer cedula =  1234;
+        Cliente cliente = new Cliente("d","perez",1234,"calle 56 6-56",20,"d.perez@gmail.com");
+        List<Reserva> reservas = new ArrayList<>();
+        Habitacion habitacion = new Habitacion(2,"premium",15500);
+        Reserva reserva1 = new Reserva(LocalDate.now(),habitacion,cliente,20000);
+        reservas.add(reserva1);
+        when(clienteRepository.findById(any())).thenReturn(Optional.of(cliente));
+        when(reservaRepository.findAll()).thenReturn(reservas);
+        //Act
+        List<Reserva> reserva = this.reservaService.obtenerReservasCliente(cedula);
+        //Assert
+        Assertions.assertFalse(reserva.isEmpty());
     }
 
     @Test
@@ -163,13 +181,12 @@ class ReservaServiceTest {
         List<Reserva> reservas = new ArrayList<>();
         when(habitacionRepository.findById(any())).thenReturn(Optional.of(habitacion1));
         when(reservaRepository.findAll()).thenReturn(reservas);
-
         // Act
         List<Habitacion> actualHabitacionesDisponibles = this.reservaService.validarDisponibilidadFecha(fecha);
-
         // Assert
         Assertions.assertTrue(actualHabitacionesDisponibles.isEmpty());
     }
+
     @Test
     void validarDisponibilidadFecha_habitacionesNoDisponibles() {
         // Arrange
@@ -182,35 +199,62 @@ class ReservaServiceTest {
         List<Reserva> reservas = List.of(reserva1);
         when(habitacionRepository.findAll()).thenReturn(habitaciones);
         when(reservaRepository.findAll()).thenReturn(reservas);
-
         // Act
         List<Habitacion> actualHabitacionesNoDisponibles = this.reservaService.validarDisponibilidadFecha(fecha);
-
         // Assert
         Assertions.assertFalse(actualHabitacionesNoDisponibles.isEmpty());
     }
 
     @Test
-    void stringToDate_fechaValida() {
-        // Arrange
-        String fecha = "31-03-2023";
-        LocalDate expectedDate = LocalDate.of(2023, 3, 31);
-
-        // Act
-        LocalDate actualDate = this.reservaService.stringToDate(fecha);
-
-        // Assert
-        Assertions.assertEquals(expectedDate, actualDate);
+    void obtenerHabitacionesDisponiblesFecha() {
+        //Arrange
+        String fecha = "28-03-2028";
+        //Act
+        List<Habitacion> habitacion = this.reservaService.obtenerHabitacionesDisponiblesFecha(fecha);
+        //Assert
+        Assertions.assertTrue(habitacion.isEmpty());
     }
 
     @Test
-    void stringToDate_fechaInvalida() {
-        // Arrange
-        String fecha = "31/03/2023";
-
-        // Act + Assert
-        Assertions.assertThrows(DateTimeParseException.class, () -> this.reservaService.stringToDate(fecha));
+    void obtenerHabitacionesConFechaNoDisponible(){
+        ApiRequestException thrown = assertThrows(
+                ApiRequestException.class,
+                () -> this.reservaService.obtenerHabitacionesDisponiblesFecha("05-02-2022"),
+                "La fecha no esta disponible"
+        );
+        Assertions.assertTrue(thrown.getMessage().contentEquals("La fecha no esta disponible"));
     }
+
+    @Test
+    void testObtenerHabitacionesTipoYFechaTipoHabitacionNoExiste() {
+        // Arrange
+        String fecha = "28-06-2023";
+        // Act
+        List<Habitacion> habitaciones = this.reservaService.obtenerHabitacionesTipoYFecha("premium", fecha);
+        // Assert
+        Assertions.assertTrue(habitaciones.isEmpty());
+    }
+
+    @Test
+    void calcularTotalPagoTest() {
+        // Arrange
+        Habitacion habitacion = new Habitacion(1, "PREMIUM", 10000);
+        when(habitacionRepository.findById(1)).thenReturn(Optional.of(habitacion));
+        // Act
+        ReservaService reservaService = new ReservaService(reservaRepository,clienteRepository,habitacionRepository);
+        //Assert
+        Assertions.assertEquals(500, reservaService.calcularTotalPago(habitacion));
+    }
+
+   /* @Test
+    void obtenerHabitacionesTipoYFechaNoDisponible() {
+        ApiRequestException thrown = assertThrows(
+                ApiRequestException.class,
+                () -> this.reservaService.obtenerHabitacionesTipoYFecha("ESTANDAR", "05-02-2022"),
+                "La fecha no puede ser antes de la actual"
+        );
+        Assertions.assertTrue(thrown.getMessage().contentEquals("La fecha no puede ser antes de la actual"));
+    }*/
 }
 
 

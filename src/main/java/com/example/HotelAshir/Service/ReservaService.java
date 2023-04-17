@@ -1,4 +1,6 @@
 package com.example.HotelAshir.Service;
+
+import com.example.HotelAshir.Dto.ReservaDto;
 import com.example.HotelAshir.Exception.ApiRequestException;
 import com.example.HotelAshir.Model.Cliente;
 import com.example.HotelAshir.Model.Habitacion;
@@ -7,10 +9,13 @@ import com.example.HotelAshir.Repository.ClienteRepository;
 import com.example.HotelAshir.Repository.HabitacionRepository;
 import com.example.HotelAshir.Repository.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,40 +34,31 @@ public class ReservaService {
         this.habitacionRepository = habitacionRepository;
     }
 
-    public List<Habitacion> obtenerHabitacionesDisponiblesFecha(String fecha){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate date = LocalDate.parse(fecha,formatter);
-        if(date.isBefore(LocalDate.now())){
-            throw new ApiRequestException("Indique una fecha ");
+    public ReservaDto crearReserva(Integer numHabitacion, Integer cedula, String fecha){
+        if(numHabitacion == null || cedula == null ||fecha == null){
+            throw new ApiRequestException("Los datos están incorrectos");
         }
-        return validarDisponibilidadFecha(date);
-    }
-    public List<Habitacion> ObtenerHabitacionesTipoYFecha(String tipo, String fecha){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate date = LocalDate.parse(fecha,formatter);
         if (date.isBefore(LocalDate.now())){
-            throw new ApiRequestException("La fecha es erronea");
-        }
-        List<Habitacion> habitacionesDisponibles = validarDisponibilidadFecha(date);
-        habitacionesDisponibles = habitacionesDisponibles.stream()
-                .filter(habitacion -> habitacion.getTipoHabitacion().equals(tipo))
-                .collect(Collectors.toList());
-        return habitacionesDisponibles;
-    }
-
-    public Reserva crearReserva(Integer numHabitacion, Integer cedula, String fecha){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate date = LocalDate.parse(fecha,formatter);
-        if (date.isBefore(LocalDate.now())){
-            throw new ApiRequestException("La fecha es erronea");
+            throw new ApiRequestException("La fecha es anterior a la actual");
         }
         Optional<Cliente> cliente = this.clienteRepository.findById(cedula);
+        Optional<Habitacion> habitacion = this.habitacionRepository.findById(numHabitacion);
         if(cliente.isPresent()){
-            Optional<Habitacion> habitacion = this.habitacionRepository.findById(numHabitacion);
+            List<Habitacion> disponibles = validarDisponibilidadFecha(date);
             if(habitacion.isPresent()){
-                List<Habitacion> disponibles = validarDisponibilidadFecha(date);
+                Integer base = habitacion.get().getPrecioBase();
+                Integer total = calcularTotalPago(habitacion.get());
+                if (!habitacion.get().getTipoHabitacion().equals("PREMIUM"))
+                    total = base;
                 if(disponibles.contains(habitacion.get())){
-                    return this.reservaRepository.save(new Reserva(date,habitacion.get(),cliente.get(),habitacion.get().getPrecioBase()));
+                    Reserva reserva =new Reserva(date,habitacion.get(),cliente.get(),total);
+                    this.reservaRepository.save(reserva);
+                    return new ReservaDto(reserva.getFechaReserva(),
+                            reserva.getHabitacion().getNumero(),
+                            reserva.getCodigoReserva(),
+                            reserva.getTotalPago());
                 } else{
                     throw new ApiRequestException("Esta habitación no esta disponible");
                 }
@@ -77,7 +73,7 @@ public class ReservaService {
     public List<Reserva> obtenerReservasCliente(Integer cedula){
         Optional<Cliente> cliente = this.clienteRepository.findById(cedula);
         if(cliente.isEmpty()){
-            throw new ApiRequestException("Esta cedula no esta registrada");
+            throw new ApiRequestException("Esta cédula no esta registrada");
         }
         return this.reservaRepository.findAll().stream()
                 .filter(x->x.getCliente().getCedula().equals(cedula))
@@ -98,4 +94,30 @@ public class ReservaService {
         return habitacionesDisponibles;
     }
 
+    public List<Habitacion> obtenerHabitacionesDisponiblesFecha(String fecha){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate date = LocalDate.parse(fecha,formatter);
+        if(date.isBefore(LocalDate.now())){
+            throw new ApiRequestException("La fecha no esta disponible");
+        }
+        return validarDisponibilidadFecha(date);
+    }
+    public List<Habitacion> obtenerHabitacionesTipoYFecha(String tipo, String fecha){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate date = LocalDate.parse(fecha,formatter);
+        List<Habitacion> habitacionesDisponibles = validarDisponibilidadFecha(date);
+        habitacionesDisponibles = habitacionesDisponibles.stream()
+                .filter(habitacion -> habitacion.getTipoHabitacion().equals(tipo))
+                .collect(Collectors.toList());
+        return habitacionesDisponibles;
+    }
+
+    public Integer calcularTotalPago(Habitacion habitacion) {
+        Integer base = habitacion.getPrecioBase();
+        if (habitacion.getTipoHabitacion().equals("PREMIUM")) {
+            return base * 5 / 100;
+        }
+        return base;
+    }
 }
+

@@ -1,5 +1,6 @@
 package com.example.HotelAshir.Controller;
 
+import com.example.HotelAshir.Dto.ClienteDto;
 import com.example.HotelAshir.Model.Cliente;
 import com.example.HotelAshir.Service.ClienteService;
 import io.swagger.annotations.Api;
@@ -25,13 +26,13 @@ public class ClienteController {
     }
 
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Cliente creado con exito"),
+            @ApiResponse(code = 200, message = "Cliente creado con éxito"),
             @ApiResponse(code = 404, message = "El cliente no ha sido creado"),
             @ApiResponse(code = 500, message = "Error de conexión")
     })
     @ApiOperation(value = "Crear cliente", notes = "Crear cliente en la base de datos con la información obtenida", response = Cliente.class)
     @PostMapping("/cliente")
-    public Cliente registrarCliente(@RequestBody Cliente cliente) {
-        return this.clienteService.registrarCliente(cliente);
+    public ClienteDto registrarCliente(@RequestBody ClienteDto clienteDto) {
+        return this.clienteService.registrarCliente(clienteDto);
     }
 }

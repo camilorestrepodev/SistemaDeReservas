@@ -1,11 +1,9 @@
 package com.example.HotelAshir;
 
+import com.example.HotelAshir.Dto.HabitacionDto;
 import com.example.HotelAshir.Exception.ApiRequestException;
-import com.example.HotelAshir.Model.Cliente;
-import com.example.HotelAshir.Model.Habitacion;
-import com.example.HotelAshir.Repository.ClienteRepository;
 import com.example.HotelAshir.Repository.HabitacionRepository;
-import com.example.HotelAshir.Service.ClienteService;
+
 import com.example.HotelAshir.Service.HabitacionService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,9 +25,9 @@ class HabitacionServiceTest {
     @Test
     void validarRegistroCliente() {
         //Arrange
-        Habitacion habitacion = new Habitacion(1,"ESTANDAR",35000);
+        HabitacionDto habitacion = new HabitacionDto(1,35000,"ESTANDAR");
         //Act
-        Habitacion habitacion1 = this.habitacionService.registrarHabitacion(habitacion);
+        HabitacionDto habitacion1 = this.habitacionService.registrarHabitacion(habitacion);
         //Assert
         Assertions.assertNotNull(habitacion1.getNumero());
         Assertions.assertNotNull(habitacion1.getTipoHabitacion());
@@ -39,7 +37,7 @@ class HabitacionServiceTest {
    @Test
     void validarRegistroTipoHabitacionNull(){
         //Arrange
-       Habitacion habitacion = new Habitacion(2,null,4000);
+       HabitacionDto habitacion = new HabitacionDto(2,4000,null);
         //Act y Assert
         ApiRequestException thrown = assertThrows(
                 ApiRequestException.class,
@@ -51,7 +49,7 @@ class HabitacionServiceTest {
     @Test
     void validarRegistroConPrecioNull(){
         //Arrange
-        Habitacion habitacion = new Habitacion(3,"ESTANDAR",null);
+        HabitacionDto habitacion = new HabitacionDto(3,null,"ESTANDAR");
         //Act y Assert
         ApiRequestException thrown = assertThrows(
                 ApiRequestException.class,

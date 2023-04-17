@@ -21,7 +21,7 @@ spring.mvc.pathmatch.matching-strategy=ant-path-matcher
 ```
 
 ## Documentación
-La documentación de la API se genera automáticamente con Swagger. Para acceder a la documentación, abra un navegador web y vaya a http://localhost:8080/swagger-ui.html.
+La documentación de la API se genera automáticamente con Swagger. Para acceder a la documentación, abra un navegador web y vaya a [Documentación Swagger](http://localhost:8080/swagger-ui.html).
 
 ## Patrón de Diseño
 Este proyecto utiliza el patrón de diseño DTO (Data Transfer Object) para transferir datos entre las diferentes capas de la aplicación. Los DTO son objetos simples que contienen campos y métodos de acceso, y se utilizan para transferir datos entre los controladores y los servicios.

@@ -24,7 +24,6 @@ public class Cliente {
 
     public Cliente() {
     }
-    //clientegit
     public Cliente(String nombre, String apellido, Integer cedula, String direccion, Integer edad, String email) {
         this.nombre = nombre;
         this.apellido = apellido;

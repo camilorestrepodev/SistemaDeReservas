@@ -45,28 +45,27 @@ class ReservaServiceTest {
     private HabitacionService habitacionService;
 
 
-   @Test
+    @Test
     void crearReservaValida() {
-        Integer numHabitacion = 1;
-        Integer cedula = 123456789;
         String fecha = "30-09-2023";
-        String tipoHabitacion = "PREMIUM";
-        Habitacion habitacion = new Habitacion(numHabitacion,tipoHabitacion,7500);
-       List<Habitacion> disponibles = new ArrayList<>();
-       disponibles.add(habitacion);
-        when(habitacionRepository.findById(numHabitacion)).thenReturn(Optional.of(habitacion));
-        when(habitacionRepository.save(habitacion)).thenReturn(habitacion);
-        Cliente cliente = new Cliente("mateo","zapata",cedula,"calle 51",18,"mateoz@gmial.com");
+        Habitacion habitacion = new Habitacion(1, "PREMIUM", 7500);
+        Cliente cliente = new Cliente("mateo","zapata",123,"calle 51",18,"mateoz@gmial.com");
+        Integer total = 375;
+        List<Habitacion> habitacionesDisponibles = new ArrayList<>();
+        habitacionesDisponibles.add(habitacion);
+        //Simular el comportamiento de los objetos necesarios
+        when(habitacionRepository.findAll()).thenReturn(habitacionesDisponibles);
+        when(habitacionRepository.findById(habitacion.getNumero())).thenReturn(Optional.of(habitacion));
+        when(clienteRepository.findById(cliente.getCedula())).thenReturn(Optional.of(cliente));
 
-        when(clienteRepository.findById(cedula)).thenReturn(Optional.of(cliente));
+        Reserva reserva = new Reserva(LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy")), habitacion, cliente, total);
+        when(reservaRepository.save(any(Reserva.class))).thenReturn(reserva);
 
-        Reserva reserva = new Reserva(LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy")), habitacion, cliente, 7500);
-        when(reservaRepository.save(reserva)).thenReturn(reserva);
+        ReservaDto reservaDto = reservaService.crearReserva(habitacion.getNumero(),cliente.getCedula(),fecha);
 
-        ReservaDto reservaDto = reservaService.crearReserva(numHabitacion,cedula,fecha);
+        Assertions.assertEquals(habitacion.getNumero(), reservaDto.getNumero());
+        Assertions.assertEquals(total, reservaDto.getTotalPago());
 
-        Assertions.assertEquals(numHabitacion, reservaDto.getNumero());
-        Assertions.assertEquals(7500, reservaDto.getTotalPago());
     }
 
     @Test

@@ -9,13 +9,10 @@ import com.example.HotelAshir.Repository.ClienteRepository;
 import com.example.HotelAshir.Repository.HabitacionRepository;
 import com.example.HotelAshir.Repository.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,9 +20,9 @@ import java.util.stream.Collectors;
 @Service
 public class ReservaService {
 
-    private ReservaRepository reservaRepository;
-    private ClienteRepository clienteRepository;
-    private HabitacionRepository habitacionRepository;
+    private final ReservaRepository reservaRepository;
+    private final ClienteRepository clienteRepository;
+    private final HabitacionRepository habitacionRepository;
 
     @Autowired
     public ReservaService(ReservaRepository reservaRepository, ClienteRepository clienteRepository, HabitacionRepository habitacionRepository) {

@@ -21,7 +21,7 @@ public class Cliente {
     private Integer edad;
     @Column(name = "correo")
     private String email;
-
+    //
     public Cliente() {
     }
     public Cliente(String nombre, String apellido, Integer cedula, String direccion, Integer edad, String email) {

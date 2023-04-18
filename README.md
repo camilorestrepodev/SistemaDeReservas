@@ -1,4 +1,6 @@
 # Sistema de Reservas
+![Logo Hotel Ashir](https://user-images.githubusercontent.com/115324147/232672040-8daaa2cf-615e-46ea-8833-2524ab0e9b73.png)
+
 Este proyecto es un sistema de reservas desarrollado en Java utilizando el framework Spring y la herramienta de construcción Gradle. 
 El sistema permite a los clientes realizar reservas en línea para habitaciones de hotel (Hotel Ashir).
 

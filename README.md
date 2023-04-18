@@ -1,9 +1,7 @@
 # Sistema de Reservas <img alt="Java" height="40" width="40" src="https://media.giphy.com/media/fRaFhz7PtRH5vdfCGL/giphy.gif">
-<<<<<<< HEAD
+
 Este es un proyecto de sistema de reservas en Java y Spring que utiliza una base de datos MySQL, siguiendo un modelo entidad-relación. Este proyecto tiene documentación en Swagger y utiliza el patrón de diseño DTO. También se han creado pruebas unitarias con Mockito y JUnit para garantizar la calidad del código. Se han creado microservicios para manejar las entidades Cliente, Habitación y Reserva.
-=======
-Este es un proyecto de sistema de reservas en Java y Spring que utiliza una base de datos MySQL, siguiendo un modelo entidad-relación. Este proyecto tiene documentación en Swagger y utiliza el patrón de diseño DTO. También se han creado pruebas unitarias con Mockito y JUnit para garantizar la calidad del código. Se han creado microservicios para manejar las entidades Cliente, Habitación y Reserva. 
->>>>>>> e4ea60a5ee7d4cdfe73b807978d0264ac048c12d
+
 El sistema permite a los clientes realizar reservas en línea para habitaciones de hotel (Hotel Ashir).
 <div align="center"><img align="center" alt="HTML" height="150" width="200" src="https://user-images.githubusercontent.com/115324147/232672040-8daaa2cf-615e-46ea-8833-2524ab0e9b73.png">
 </div>
@@ -12,11 +10,7 @@ El sistema permite a los clientes realizar reservas en línea para habitaciones 
 - Java versión: 11
 - Gestor de dependencias: Gradle
 - Spring Boot: 2.7.11 (SNAPSHOT)
-<<<<<<< HEAD
 - Base de datos: MySQL
-=======
-- Base de datos: MySQL 
->>>>>>> e4ea60a5ee7d4cdfe73b807978d0264ac048c12d
 
 ## Configuración 
 Antes de comenzar, asegúrese de tener una base de datos configurada y actualice las credenciales de la base de datos en el archivo **application.properties**.
@@ -30,7 +24,7 @@ spring.mvc.pathmatch.matching-strategy=ant-path-matcher
 ```
 
 ## Documentación
-La documentación de la API se genera automáticamente con Swagger. Para acceder a la documentación, abra un navegador web y vaya a [Documentación Swagger](http://localhost:8080/swagger-ui.html).
+La documentación de la API se genera automáticamente con Swagger. Para acceder a la documentación, abra un navegador web y vaya a [Documentación Swagger](https://sistemadereservas-production-26ff.up.railway.app/swagger-ui/index.html).
 
 ## Patrón de Diseño
 Este proyecto utiliza el patrón de diseño DTO (Data Transfer Object) para transferir datos entre las diferentes capas de la aplicación. Los DTO son objetos simples que contienen campos y métodos de acceso, y se utilizan para transferir datos entre los controladores y los servicios.
@@ -193,9 +187,8 @@ Las pruebas unitarias se encuentran en la carpeta src/test/java del proyecto.
 Este proyecto cuenta con integración continua mediante Github Actions. Cada vez que se realiza un push al repositorio, se ejecutan las pruebas unitarias y se crea un archivo JAR ejecutable.
 
 ## Despliegue del microservicio (Railway)
-<<<<<<< HEAD
-Este proyecto cuenta con un despliegue del microservicio mediante Railway. Conecta directamente con Github y nuestra base de datos(MySQL).
-=======
+
 Este proyecto cuenta con un despliegue del microservicio mediante Railway. Conecta directamente con Github y nuestra base de datos(MySQL).
 
->>>>>>> e4ea60a5ee7d4cdfe73b807978d0264ac048c12d
+
+

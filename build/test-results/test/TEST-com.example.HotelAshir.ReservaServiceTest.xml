@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.HotelAshir.ReservaServiceTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2023-04-18T15:07:52" hostname="DESKTOP-RMB6K6C" time="1.673">
+  <properties/>
+  <testcase name="crearReservaConFechaAnterior()" classname="com.example.HotelAshir.ReservaServiceTest" time="1.518"/>
+  <testcase name="validarDisponibilidadFecha_habitacionesDisponibles()" classname="com.example.HotelAshir.ReservaServiceTest" time="0.058"/>
+  <testcase name="crearReservaNoExisteHabitacion()" classname="com.example.HotelAshir.ReservaServiceTest" time="0.011"/>
+  <testcase name="obtenerReservarPorCliente()" classname="com.example.HotelAshir.ReservaServiceTest" time="0.009"/>
+  <testcase name="crearReservaValida()" classname="com.example.HotelAshir.ReservaServiceTest" time="0.019"/>
+  <testcase name="crearReservaNoExisteCliente()" classname="com.example.HotelAshir.ReservaServiceTest" time="0.003"/>
+  <testcase name="obtenerHabitacionesConFechaNoDisponible()" classname="com.example.HotelAshir.ReservaServiceTest" time="0.002"/>
+  <testcase name="testObtenerHabitacionesTipoYFechaTipoHabitacionNoExiste()" classname="com.example.HotelAshir.ReservaServiceTest" time="0.003"/>
+  <testcase name="obtenerClienteSinReserva()" classname="com.example.HotelAshir.ReservaServiceTest" time="0.005"/>
+  <testcase name="crearReservaNoHayHabitacionesDisponiblesEnEsaFecha()" classname="com.example.HotelAshir.ReservaServiceTest" time="0.008"/>
+  <testcase name="obtenerHabitacionesDisponiblesFecha()" classname="com.example.HotelAshir.ReservaServiceTest" time="0.003"/>
+  <testcase name="crearReservasConDatosNull()" classname="com.example.HotelAshir.ReservaServiceTest" time="0.002"/>
+  <testcase name="obtenerReservaClienteSinRegistrar()" classname="com.example.HotelAshir.ReservaServiceTest" time="0.002"/>
+  <testcase name="validarDisponibilidadFecha_habitacionesNoDisponibles()" classname="com.example.HotelAshir.ReservaServiceTest" time="0.003"/>
+  <testcase name="calcularTotalPagoTest()" classname="com.example.HotelAshir.ReservaServiceTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

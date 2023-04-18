@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class HabitacionService {
 
-    private HabitacionRepository habitacionRepository;
+    private final HabitacionRepository habitacionRepository;
 
     @Autowired
     public HabitacionService(HabitacionRepository habitacionRepository) {

@@ -1,7 +1,6 @@
 package com.example.HotelAshir.Controller;
 
 import com.example.HotelAshir.Dto.HabitacionDto;
-import com.example.HotelAshir.Model.Cliente;
 import com.example.HotelAshir.Model.Habitacion;
 import com.example.HotelAshir.Service.HabitacionService;
 import io.swagger.annotations.Api;

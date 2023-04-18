@@ -1,13 +1,14 @@
-# Sistema de Reservas
-Este proyecto es un sistema de reservas desarrollado en Java utilizando el framework Spring y la herramienta de construcción Gradle. 
+# Sistema de Reservas <img alt="Java" height="40" width="40" src="https://media.giphy.com/media/fRaFhz7PtRH5vdfCGL/giphy.gif">
+Este es un proyecto de sistema de reservas en Java y Spring que utiliza una base de datos MySQL, siguiendo un modelo entidad-relación. Este proyecto tiene documentación en Swagger y utiliza el patrón de diseño DTO. También se han creado pruebas unitarias con Mockito y JUnit para garantizar la calidad del código. Se han creado microservicios para manejar las entidades Cliente, Habitación y Reserva.
 El sistema permite a los clientes realizar reservas en línea para habitaciones de hotel (Hotel Ashir).
+<div align="center"><img align="center" alt="HTML" height="150" width="200" src="https://user-images.githubusercontent.com/115324147/232672040-8daaa2cf-615e-46ea-8833-2524ab0e9b73.png">
+</div>
 
 ## Requisitos
 - Java versión: 11
-- Gradle:
+- Gestor de dependencias: Gradle
 - Spring Boot: 2.7.11 (SNAPSHOT)
-- Base de datos: MySQL 
-- JpaRepository
+- Base de datos: MySQL
 
 ## Configuración
 Antes de comenzar, asegúrese de tener una base de datos configurada y actualice las credenciales de la base de datos en el archivo **application.properties**.
@@ -28,6 +29,7 @@ Este proyecto utiliza el patrón de diseño DTO (Data Transfer Object) para tran
 
 ## Diagrama del Modelo Entidad-Relación
 Este es el diagrama del modelo entidad-relación para la base de datos MySQL del proyecto de sistema de reservas:
+
 ![Diagrama](https://user-images.githubusercontent.com/119947851/232180155-0b7b4fa5-03e4-4316-a5cc-e0fa675722d2.png)
 
 - La tabla **Cliente** contiene información sobre los clientes, como su cedula, nombre, apellido, direccion, edad y correo electronico.
@@ -36,7 +38,8 @@ Este es el diagrama del modelo entidad-relación para la base de datos MySQL del
 
 ## Diagrama de Clases
 
-#### Esquema del proyecto:
+#### Diagrama del proyecto por paquetes:
+
 ```java
 com.example.HotelAshir
 ├── Configurer
@@ -70,6 +73,7 @@ com.example.HotelAshir
 - El paquete **Repository** contiene las interfaces de repositorios JPA para los objetos Cliente, Habitación y Reserva, que se utilizan para interactuar con la base de datos.
 - El paquete **Service** contiene las clases de servicios para los microservicios de Cliente, Habitación y Reserva, que contienen la lógica de negocio.
 - La clase **HotelAshirApplication** es la clase principal del proyecto que se utiliza para iniciar la aplicación.
+
 ## Microservicios
 Este proyecto está dividido en tres microservicios diferentes: Cliente, Habitación y Reserva. Cada microservicio tiene su propia base de datos y API REST. La comunicación entre los microservicios se realiza a través de peticiones HTTP.
 
@@ -102,7 +106,7 @@ Endpoints:
 #### Reserva Microservicio
 Endpoints:
 - **POST /reservar** - Crea una nueva habitación
-Ejemplo de petición:
+  Ejemplo de petición:
 
 ``(http://localhost:8084/api/v1/reservar/?numero=10&fecha=25-08-2023&cedula=12345)``
 
@@ -172,8 +176,13 @@ Ejemplo de petición:
 ]
 ```
 
-## Pruebas Unitarias
-Este proyecto cuenta con pruebas unitarias implementadas con Mockito y JUnit. Las pruebas se encuentran en la carpeta src/test/java y se pueden ejecutar con el siguiente comando:
+## Pruebas Unitarias <img alt="Pruebas" height="40" width="40" src="https://media.giphy.com/media/1sMGC0XjA1Hk58wppo/giphy.gif">
+Se han incluido pruebas unitarias utilizando Mockito y JUnit para asegurar que los microservicios de Cliente, Habitación y Reserva funcionan correctamente.
+Las pruebas unitarias se encuentran en la carpeta src/test/java del proyecto.
 
 
-## Integración continua
+## Integración continua <img alt="Integracion" height="50" width="50" src="https://media.giphy.com/media/Vnk8f29XU6GSZK8uGJ/giphy.gif">
+Este proyecto cuenta con integración continua mediante Github Actions. Cada vez que se realiza un push al repositorio, se ejecutan las pruebas unitarias y se crea un archivo JAR ejecutable.
+
+## Despliegue del microservicio (Railway)
+Este proyecto cuenta con un despliegue del microservicio mediante Railway. Conecta directamente con Github y nuestra base de datos(MySQL).

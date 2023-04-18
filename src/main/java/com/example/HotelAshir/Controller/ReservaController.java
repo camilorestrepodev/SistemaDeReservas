@@ -27,9 +27,9 @@ public class ReservaController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Habitación obtenida por fecha con éxito"),
             @ApiResponse(code = 404, message = "No se ha encontrado la habitación por fecha"),
-            @ApiResponse(code = 500, message = "Error de conexion")
+            @ApiResponse(code = 500, message = "Error de conexión")
     })
-    @ApiOperation(value = "Crear habitación", notes = "Crear habitación en la base de datos con la información obtenida", response = Habitacion.class)
+    @ApiOperation(value = "Obtener habitación por fecha", notes = "Obtener habitación disponibles por el método de la fecha", response = Habitacion.class)
     @GetMapping("/disponibles/{fecha}")
     public List<Habitacion> habitacionesPorFecha(@PathVariable("fecha") String fecha) {
         return this.reservaService.obtenerHabitacionesDisponiblesFecha(fecha);
@@ -38,9 +38,9 @@ public class ReservaController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Habitación obtenida por tipo"),
             @ApiResponse(code = 404, message = "No se ha encontrado la habitación por tipo"),
-            @ApiResponse(code = 500, message = "Error de conexion")
+            @ApiResponse(code = 500, message = "Error de conexión")
     })
-    @ApiOperation(value = "Crear habitación", notes = "Crear habitación en la base de datos con la información obtenida", response = Habitacion.class)
+    @ApiOperation(value = "Obtener habitación por tipo", notes = "Obtener habitaciones por tipo PREMIUM/ESTÁNDAR", response = Habitacion.class)
     @GetMapping("/disponibles/habitacion")
     public List<Habitacion> habitacionesPorTipo(@RequestParam("tipo") String tipo, @RequestParam("fecha") String fecha) {
         return this.reservaService.obtenerHabitacionesTipoYFecha(tipo, fecha);
@@ -49,7 +49,7 @@ public class ReservaController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Reserva creada con éxito"),
             @ApiResponse(code = 404, message = "La reserva no se ha creado"),
-            @ApiResponse(code = 500, message = "Error de conexion")
+            @ApiResponse(code = 500, message = "Error de conexión")
     })
     @ApiOperation(value = "Crear reserva", notes = "Crear reserva en la base de datos con la información obtenida", response = Habitacion.class)
     @PostMapping("/reservar")
@@ -60,9 +60,9 @@ public class ReservaController {
    @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Reserva obtenida por cédula exitosamente"),
             @ApiResponse(code = 404, message = "No se ha encontrado la reserva por cédula"),
-            @ApiResponse(code = 500, message = "Error de conexion")
+            @ApiResponse(code = 500, message = "Error de conexión")
     })
-    @ApiOperation(value = "Crear habitación", notes = "Crear habitación en la base de datos con la información obtenida", response = Habitacion.class)
+    @ApiOperation(value = "Obtener reserva por cédula", notes = "Obtener una reserva por la cédula del cliente", response = Habitacion.class)
     @GetMapping("/reservas/{cedula}")
     public List<Reserva> reservasCliente(@PathVariable("cedula") Integer cedula) {
         return this.reservaService.obtenerReservasCliente(cedula);

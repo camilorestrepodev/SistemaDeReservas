@@ -186,7 +186,7 @@ Las pruebas unitarias se encuentran en la carpeta src/test/java del proyecto.
 ## Integración continua <img alt="Integracion" height="50" width="50" src="https://media.giphy.com/media/Vnk8f29XU6GSZK8uGJ/giphy.gif">
 Este proyecto cuenta con integración continua mediante Github Actions. Cada vez que se realiza un push al repositorio, se ejecutan las pruebas unitarias y se crea un archivo JAR ejecutable.
 
-## Despliegue del microservicio (Railway)
+## Despliegue del microservicio (Railway) <img alt="Despliegue" height="60" width="80" src="https://media.giphy.com/media/K18CAbEvci4b2aODo4/giphy.gif">
 
 Este proyecto cuenta con un despliegue del microservicio mediante Railway. Conecta directamente con Github y nuestra base de datos(MySQL).
 

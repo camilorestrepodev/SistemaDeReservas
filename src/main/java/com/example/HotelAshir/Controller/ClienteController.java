@@ -1,9 +1,10 @@
 package com.example.HotelAshir.Controller;
 
 import com.example.HotelAshir.Dto.ClienteDto;
-import com.example.HotelAshir.Model.Cliente;
+
 import com.example.HotelAshir.Service.ClienteService;
 import io.swagger.annotations.Api;
+
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/v1")
-@Api(value="cliente", description = "Crud de clientes")
+@Api(value = "Gestión de clientes", description = "API para gestionar los clientes en el sistema")
 public class ClienteController {
     private final ClienteService clienteService;
 
@@ -24,15 +25,13 @@ public class ClienteController {
     public ClienteController(ClienteService clienteService) {
         this.clienteService = clienteService;
     }
-
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Cliente creado con éxito"),
-            @ApiResponse(code = 404, message = "El cliente no ha sido creado"),
-            @ApiResponse(code = 500, message = "Error de conexión")
-    })
-
-    @ApiOperation(value = "Crear cliente", notes = "Crear cliente en la base de datos con la información obtenida", response = Cliente.class)
     @PostMapping("/cliente")
+    @ApiOperation(value = "Crea un nuevo cliente")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "El cliente fue creado exitosamente"),
+            @ApiResponse(code = 401, message = "No se tiene autorización para realizar esta operación"),
+            @ApiResponse(code = 500, message = "Ocurrió un error en el servidor")
+    })
     @PreAuthorize("hasRole('WRITE')")
     public ClienteDto registrarCliente(@RequestBody ClienteDto clienteDto) {
         return this.clienteService.registrarCliente(clienteDto);

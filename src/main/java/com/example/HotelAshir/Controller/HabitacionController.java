@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/v1")
-@Api(value="habitacion", description = "Crud de habitación")
+@Api(value = "Gestión de habitaciones", description = "API para gestionar habitaciones en el sistema")
 public class HabitacionController {
     private final HabitacionService habitacionService;
 
@@ -25,15 +25,13 @@ public class HabitacionController {
         this.habitacionService = habitacionService;
     }
 
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Habitación ha sido creada con éxito"),
-            @ApiResponse(code = 404, message = "La habitación no ha sido creada"),
-            @ApiResponse(code = 500, message = "Error de conexión")
-    })
-
-
-    @ApiOperation(value = "Crear habitación", notes = "Crear habitación en la base de datos con la información obtenida", response = Habitacion.class)
     @PostMapping("/habitacion")
+    @ApiOperation(value = "Crea una nueva habitación")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "La habitación fue creada exitosamente"),
+            @ApiResponse(code = 401, message = "No se tiene autorización para realizar esta operación"),
+            @ApiResponse(code = 500, message = "Ocurrió un error en el servidor")
+    })
     @PreAuthorize("hasRole('WRITE')")
     public HabitacionDto registrarHabitacion(@RequestBody HabitacionDto habitacionDto) {
         return this.habitacionService.registrarHabitacion(habitacionDto);

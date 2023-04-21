@@ -18,10 +18,10 @@ public class WebSecuritConfig {
         return http
                 .httpBasic()
                 .and().authorizeHttpRequests()
-                .antMatchers(HttpMethod.GET).hasAuthority("READ")
-                .antMatchers(HttpMethod.POST).hasAuthority("WRITE")
-                .antMatchers(HttpMethod.PATCH).hasAuthority("WRITE")
-                .antMatchers(HttpMethod.DELETE).hasAuthority("WRITE")
+                .antMatchers(HttpMethod.GET).hasAuthority("read")
+                .antMatchers(HttpMethod.POST).hasAuthority("write")
+                .antMatchers(HttpMethod.PATCH).hasAuthority("write")
+                .antMatchers(HttpMethod.DELETE).hasAuthority("write")
                 .and()
                 .csrf().disable()
                 .build();
@@ -31,11 +31,11 @@ public class WebSecuritConfig {
         return new InMemoryUserDetailsManager(
                 User.withUsername("user")
                         .password(passwordEncoder().encode("password"))
-                        .authorities("READ")
+                        .authorities("read")
                         .build(),
                 User.withUsername("admin")
                         .password(passwordEncoder().encode("admin123"))
-                        .authorities("read","WRITE")
+                        .authorities("read","write")
                         .build()
         );
     }

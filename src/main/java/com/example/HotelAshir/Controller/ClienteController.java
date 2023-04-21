@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,8 +30,10 @@ public class ClienteController {
             @ApiResponse(code = 404, message = "El cliente no ha sido creado"),
             @ApiResponse(code = 500, message = "Error de conexión")
     })
+
     @ApiOperation(value = "Crear cliente", notes = "Crear cliente en la base de datos con la información obtenida", response = Cliente.class)
     @PostMapping("/cliente")
+    @PreAuthorize("hasRole('WRITE')")
     public ClienteDto registrarCliente(@RequestBody ClienteDto clienteDto) {
         return this.clienteService.registrarCliente(clienteDto);
     }

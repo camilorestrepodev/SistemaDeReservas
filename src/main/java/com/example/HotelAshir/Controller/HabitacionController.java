@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,8 +30,11 @@ public class HabitacionController {
             @ApiResponse(code = 404, message = "La habitación no ha sido creada"),
             @ApiResponse(code = 500, message = "Error de conexión")
     })
+
+
     @ApiOperation(value = "Crear habitación", notes = "Crear habitación en la base de datos con la información obtenida", response = Habitacion.class)
     @PostMapping("/habitacion")
+    @PreAuthorize("hasRole('WRITE')")
     public HabitacionDto registrarHabitacion(@RequestBody HabitacionDto habitacionDto) {
         return this.habitacionService.registrarHabitacion(habitacionDto);
     }

@@ -29,6 +29,9 @@ La documentación de la API se genera automáticamente con Swagger. Para acceder
 ## Patrón de Diseño
 Este proyecto utiliza el patrón de diseño DTO (Data Transfer Object) para transferir datos entre las diferentes capas de la aplicación. Los DTO son objetos simples que contienen campos y métodos de acceso, y se utilizan para transferir datos entre los controladores y los servicios.
 
+## Autenticación y autorización <img align="center" alt="seguridad" height="60" width="60" src="https://media.giphy.com/media/efCMCDdkCr53cdRZyU/giphy.gif">
+Se utiliza Spring Security para la autenticación y autorización de los usuarios. Solo los usuarios autenticados tienen acceso a las funcionalidades de reserva.
+
 ## Diagrama del Modelo Entidad-Relación
 Este es el diagrama del modelo entidad-relación para la base de datos MySQL del proyecto de sistema de reservas:
 
@@ -178,15 +181,15 @@ Ejemplo de petición:
 ]
 ```
 
-## Pruebas Unitarias <img alt="Pruebas" height="40" width="40" src="https://media.giphy.com/media/1sMGC0XjA1Hk58wppo/giphy.gif">
+## Pruebas Unitarias <img align="center" alt="Pruebas" height="40" width="40" src="https://media.giphy.com/media/1sMGC0XjA1Hk58wppo/giphy.gif">
 Se han incluido pruebas unitarias utilizando Mockito y JUnit para asegurar que los microservicios de Cliente, Habitación y Reserva funcionan correctamente.
 Las pruebas unitarias se encuentran en la carpeta src/test/java del proyecto.
 
 
-## Integración continua <img alt="Integracion" height="50" width="50" src="https://media.giphy.com/media/Vnk8f29XU6GSZK8uGJ/giphy.gif">
+## Integración continua <img align="center" alt="Integracion" height="50" width="50" src="https://media.giphy.com/media/Vnk8f29XU6GSZK8uGJ/giphy.gif">
 Este proyecto cuenta con integración continua mediante Github Actions. Cada vez que se realiza un push al repositorio, se ejecutan las pruebas unitarias y se crea un archivo JAR ejecutable.
 
-## Despliegue del microservicio (Railway) <img alt="Despliegue" height="60" width="80" src="https://media.giphy.com/media/K18CAbEvci4b2aODo4/giphy.gif">
+## Despliegue del microservicio (Railway)<img align="center" alt="Depliegue" height="60" width="60" src="https://media.giphy.com/media/K18CAbEvci4b2aODo4/giphy.gif">
 
 Este proyecto cuenta con un despliegue del microservicio mediante Railway. Conecta directamente con Github y nuestra base de datos(MySQL).
 

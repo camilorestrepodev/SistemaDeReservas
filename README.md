@@ -186,7 +186,7 @@ Se han incluido pruebas unitarias utilizando Mockito y JUnit para asegurar que l
 Las pruebas unitarias se encuentran en la carpeta src/test/java del proyecto.
 
 
-## Integración continua <img align="center" alt="Integracion" height="50" width="50" src="https://media.giphy.com/media/Vnk8f29XU6GSZK8uGJ/giphy.gif">
+## Integración continua con GitHub Actions <img align="center" alt="Integracion" height="50" width="50" src="https://media.giphy.com/media/Vnk8f29XU6GSZK8uGJ/giphy.gif">
 Este proyecto cuenta con integración continua mediante Github Actions. Cada vez que se realiza un push al repositorio, se ejecutan las pruebas unitarias y se crea un archivo JAR ejecutable.
 
 ## Despliegue del microservicio (Railway)<img align="center" alt="Depliegue" height="60" width="60" src="https://media.giphy.com/media/K18CAbEvci4b2aODo4/giphy.gif">
